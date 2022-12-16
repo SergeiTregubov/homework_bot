@@ -10,7 +10,7 @@ from logging import StreamHandler
 import requests
 from dotenv import load_dotenv
 
-from exceptions import (IndexError,WrongResponseCodeError,MessageError)
+from exceptions import (IndexError, WrongResponseCodeError, MessageError)
 
 load_dotenv()
 
