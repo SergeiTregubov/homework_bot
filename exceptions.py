@@ -1,14 +1,14 @@
-class IndexErroror(Exception):
+class IndexError(Exception):
     """Список домашних работ пуст"""
     pass
 
 
-class MessageTelegramError(Exception):
+class MessageError(Exception):
     """Исключение не для пересылки в telegram."""
     pass
 
 
-class ApiError(Exception):
+class WrongResponseCodeError(Exception):
     """Статус ответа при запросе к API Яндекс Практикум отличается от 200"""
     pass
 
@@ -18,6 +18,6 @@ class AvailabilityError(Exception):
     pass
 
 
-class NoMessageToTelegramError (Exception):
+class NoMessageError(Exception):
     """Ошибка отправки сообщения в телеграмм"""
     pass

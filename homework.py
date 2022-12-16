@@ -10,7 +10,7 @@ from logging import StreamHandler
 import requests
 from dotenv import load_dotenv
 
-from exceptions import *
+from exceptions import (IndexError,WrongResponseCodeError,MessageError)
 
 load_dotenv()
 
@@ -56,7 +56,7 @@ def send_message(bot, message):
 
 
 def get_api_answer(timestamp):
-    """Делает запрос к единственному эндпоинту API-сервиса"""
+    """Делает запрос к единственному эндпоинту API-сервиса."""
     logging.info('Проверка на запрос к APi-сервису начата.')
     timestamp = timestamp or int(time.time())
     try:
@@ -64,16 +64,16 @@ def get_api_answer(timestamp):
             ENDPOINT, headers=HEADERS, params={'from_date': timestamp}
         )
         if response.status_code != HTTPStatus.OK:
-            raise ApiError(
+            raise WrongResponseCodeError(
                 'Неверный ответ сервера: '
-                f'http_code = {response.status_code}; '
-                f'reason = {response.reason}; '
+                f'http_code = {response.status_code};'
+                f'reason = {response.reason};'
                 f'content = {response.text}'
             )
         return response.json()
     except Exception as error:
         message = f'Ошибка подключения к эндпоинту Api-сервиса:{error}'
-        raise ApiError(message)
+        raise WrongResponseCodeError(message)
 
 
 def check_response(response):
@@ -122,7 +122,7 @@ def main():
             timestamp = response.get('current_date', int(time.time()))
             if len(homeworks) > 0:
                 send_message(bot, parse_status(homeworks[0]))
-        except NoMessageToTelegramError as error:
+        except MessageError as error:
             logging.error(f'Сбой в работе программы: {error}', exc_info=True)
         except Exception as error:
             message = f'Сбой в работе программы: {error}'
