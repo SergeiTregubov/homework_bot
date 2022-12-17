@@ -1,10 +1,5 @@
-class IndexError(Exception):
+class DateStampError(Exception):
     """Список домашних работ пуст"""
-    pass
-
-
-class MessageError(Exception):
-    """Исключение не для пересылки в telegram."""
     pass
 
 
