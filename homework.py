@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import requests
 import telegram
 
-from exceptions import DateStampError, WrongResponseCodeError
+from exceptions import DateStampError, ResponseCodeError
 
 load_dotenv()
 
@@ -59,7 +59,7 @@ def get_api_answer(timestamp):
             ENDPOINT, headers=HEADERS, params={'from_date': timestamp}
         )
         if response.status_code != HTTPStatus.OK:
-            raise WrongResponseCodeError(
+            raise ResponseCodeError(
                 'Неверный ответ сервера: '
                 f'http_code = {response.status_code};'
                 f'reason = {response.reason};'
@@ -67,9 +67,9 @@ def get_api_answer(timestamp):
             )
         return response.json()
     except requests.exceptions.JSONDecodeError as error:
-        raise WrongResponseCodeError(f'Сбой декодирования JSON в ответе: {error}')
+        raise ResponseCodeError(f'Сбой декодирования JSON в ответе: {error}')
     except requests.exceptions.RequestException as error:
-        raise WrongResponseCodeError(f'Ошибка подключения к эндпоинту, {error}')
+        raise ResponseCodeError(f'Ошибка подключения к эндпоинту, {error}')
 
 
 def check_response(response):

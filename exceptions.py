@@ -3,7 +3,7 @@ class DateStampError(Exception):
     pass
 
 
-class WrongResponseCodeError(Exception):
+class ResponseCodeError(Exception):
     """Статус ответа при запросе к API Яндекс Практикум отличается от 200"""
     pass
 
