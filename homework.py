@@ -3,7 +3,6 @@ import os
 import sys
 import time
 from http import HTTPStatus
-from logging import StreamHandler
 
 from dotenv import load_dotenv
 import requests
@@ -15,7 +14,7 @@ load_dotenv()
 
 logger = logging.getLogger(__name__)
 logger.setLevel(logging.DEBUG)
-handler = StreamHandler(stream=sys.stdout)
+handler = logging.StreamHandler(stream=sys.stdout)
 formatter = logging.Formatter(
     '%(asctime)s - %(levelname)s - %(message)s - %(lineno)s'
 )
@@ -67,9 +66,10 @@ def get_api_answer(timestamp):
                 f'content = {response.text}'
             )
         return response.json()
+    except requests.exceptions.JSONDecodeError as error:
+        raise WrongResponseCodeError(f'Сбой декодирования JSON в ответе: {error}')
     except requests.exceptions.RequestException as error:
-        message = f'Ошибка подключения к эндпоинту Api-сервиса:{error}'
-        raise WrongResponseCodeError(message)
+        raise WrongResponseCodeError(f'Ошибка подключения к эндпоинту, {error}')
 
 
 def check_response(response):
