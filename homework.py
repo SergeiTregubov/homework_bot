@@ -1,3 +1,4 @@
+from json import JSONDecodeError
 import logging
 import os
 import sys
@@ -66,9 +67,9 @@ def get_api_answer(timestamp):
                 f'content = {response.text}'
             )
         return response.json()
-    except requests.exceptions.JSONDecodeError as error:
+    except JSONDecodeError as error:
         raise ResponseCodeError(f'Сбой декодирования JSON в ответе: {error}')
-    except requests.exceptions.RequestException as error:
+    except requests.RequestException as error:
         raise ResponseCodeError(f'Ошибка подключения к эндпоинту, {error}')
 
 
