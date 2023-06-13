@@ -24,7 +24,7 @@
 * **Функция send_message()** отправляет сообщение в Telegram чат, определяемый переменной окружения TELEGRAM_CHAT_ID. Принимает на вход два параметра: экземпляр класса Bot и строку с текстом сообщения.
 
 ## Инструкция по развёртыванию проекта
-* клонировать проект на компьютер `git clone https://github.com/SergeiTregubov/homework_bot.git`
+* клонировать проект на компьютер `git clone https://github.com/SergeiTregubov/telegram_bot.git`
 * создание виртуального окружения `python3 -m venv venv`
 * запуск виртуального окружения `. venv/bin/activate`
 * установить зависимости из файла requirements.txt `pip install -r requirements.txt`
