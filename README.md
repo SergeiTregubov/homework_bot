@@ -34,3 +34,5 @@
 ## Системные требования
 * Python 3.7+
 * Works on Linux, Windows, macOS
+
+Автор: [Трегубов Сергей](https://github.com/SergeiTregubov)
